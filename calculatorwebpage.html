@@ -28,38 +28,88 @@
         </style>
 
         <script>
+            var curTotal = 0; 
+            var curOp = '+'; 
+            var curNum = 0; 
+            var loaded = true; 
+
             addToField = (number) => 
             {
                 var current = document.getElementById("field").innerHTML; 
+
                 document.getElementById("field").innerHTML = current + number; 
             }
 
-            addition = (firstNumber,secNumber)
+            operate = () => 
+            {
+                curNum = parseInt(document.getElementById("field").innerHTML);
+                switch(curOp)
+                {
+                case '+':
+                    curTotal = curTotal + curNum;
+                    break;
+                case '-':
+                    curTotal = curTotal - curNum;
+                    break;
+                case '*':
+                    curTotal = curTotal * curNum;
+                    break;
+                case '/':
+                    curTotal = curTotal / curNum;
+                    break;
+                case '=': 
+                    curTotal; 
+                    break;               
+                }
 
+                document.getElementById("field").innerHTML = curTotal;
+                console.log(curTotal);
+                console.log(curNum);
+                console.log(curOp);  
+                loaded = true;             
+            }
+
+            clearField = () => 
+            {
+                document.getElementById("field").innerHTML = ""; 
+
+                curNum = 0; 
+                curTotal = 0; 
+            }
+
+            checkLoaded = () => 
+            { 
+                if (loaded) 
+                {
+                    document.getElementById("field").innerHTML = ""; 
+                }
+                loaded = false; 
+            }
         </script>
     </head>
     <body> 
         <div class = four id = "field"></div>
         <div>
-        <button class = one  onClick = "addToField(1)" >1</button>
-        <button class = one  onClick = "addToField(2)" >2</button>
-        <button class = one  onClick = "addToField(3)" >3</button>
+        <button class = one  onClick = "checkLoaded();addToField(1)" >1</button>
+        <button class = one  onClick = "checkLoaded();addToField(2)" >2</button>
+        <button class = one  onClick = "checkLoaded();addToField(3)" >3</button>
         <br> 
-        <button class = one  onClick = "addToField(4)" >4</button>
-        <button class = one  onClick = "addToField(5)" >5</button>
-        <button class = one  onClick = "addToField(6)" >6</button>
+        <button class = one  onClick = "checkLoaded();addToField(4)" >4</button>
+        <button class = one  onClick = "checkLoaded();addToField(5)" >5</button>
+        <button class = one  onClick = "checkLoaded();addToField(6)" >6</button>
         <br>
-        <button class = one  onClick = "addToField(7)" >7</button>
-        <button class = one  onClick = "addToField(8)" >8</button>
-        <button class = one  onClick = "addToField(9)" >9</button>
+        <button class = one  onClick = "checkLoaded();addToField(7)" >7</button>
+        <button class = one  onClick = "checkLoaded();addToField(8)" >8</button>
+        <button class = one  onClick = "checkLoaded();addToField(9)" >9</button>
         <br>
-        <button class = one  onClick = "addToField(0)" >0</button>
-        <button class = two  onClick = "addToField('+')" >+</button>
-        <button class = two  onClick = "addToField('-')" >-</button>
+        <button class = one  onClick = "checkLoaded();addToField(0)" >0</button>
+        <button class = two  onClick = "operate(), curOp =   '+'">+</button>
+        <button class = two  onClick = "operate(), curOp =   '-'" >-</button>
         <br> 
-        <button class = two  onClick = "addToField('*')" >*</button>
-        <button class = two  onClick = "addToField('/')" >/</button>
-        <button class = three  onClick = "addToField('=')" >=</button>
+        <button class = two  onClick = "operate(), curOp =   '*'" >*</button>
+        <button class = two  onClick = "operate(), curOp =   '/'" >/</button>
+        <button class = three  onClick = "operate(), curOp = '='" >=</button>
+        <button onClick = "clearField()"  >Clear</button>
         </div>        
     </body>
 </html>
